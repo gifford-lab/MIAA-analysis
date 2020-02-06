@@ -62,7 +62,10 @@ def plot_scatter(x,y,xlabel="",ylabel="",kind='dot',
                  correlation=pearsonr):
     if correlation != None:
         R,p = correlation(x,y)
-        title += ' R='+str(round(R,4))+' p='+str.format('{0:.3g}', p)
+        if p < 0.001:
+            title += ' r='+str(round(R,4))+' p<0.001'
+        else:
+            title += ' r='+str(round(R,4))+' p='+str.format('{0:.3g}', p)
         
     if transform != None:
         x=transform(x)
@@ -146,7 +149,7 @@ def plot_dotplot(data,id_vars,data_pivot,title="",plot_boxplot=False,plot_lines=
                      color='grey')
     plt.xticks(rotation=45,ha='right')
     plt.xlabel('')
-    plt.ylabel('Openness - Dpn Ratio')
+    plt.ylabel('Openness - Dpn Proportion')
     plt.text((3)*0.5,y+3*h,title,ha='center', va='bottom')
     plt.axis([-0.5,3.5,0,1.0])
     plt.tight_layout()
@@ -189,8 +192,8 @@ def plot_bar_scatter(data,title=""):
     plt.plot([0,1],[0,1],color='grey',linestyle='--')
     
     plt.title(title)
-    plt.xlabel('ESC Openness - Dpn Ratio')
-    plt.ylabel('DE Openness - Dpn Ratio')
+    plt.xlabel('ESC Openness - Dpn Proportion')
+    plt.ylabel('DE Openness - Dpn Proportion')
     plt.tight_layout()
 
 def plot_dnase(dnase_values,tf_order,title=""):
